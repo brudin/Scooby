@@ -20,7 +20,7 @@ import net.minecraft.scooby.mod.ModManager;
  *
  * tl;dr: don't make money off of this stuff, don't take credit for this
  *
- * @author b
+ * @author brudin
  * @since 3:31 PM on 3/15/2015
  */
 @Mod(modid = Scooby.MOD_NAME)
