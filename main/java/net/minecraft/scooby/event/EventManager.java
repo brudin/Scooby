@@ -9,7 +9,9 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
 /**
- * Basic event manager using the existing events provided by Forge.
+ * Basic event manager using the existing events provided by Forge.  Mainly to keep all of this out of the main
+ * Scooby class, keeping things clean.
+ *
  * @author b
  * @since 3:37 PM on 3/15/2015
  */
@@ -21,6 +23,9 @@ public class EventManager {
 		this.scooby = scooby;
 	}
 
+	/**
+	 * @see net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
+	 */
 	@SubscribeEvent
 	public void onEntityUpdate(LivingEvent.LivingUpdateEvent event) {
 		if (event.entity == scooby.mc.thePlayer) {
@@ -32,6 +37,9 @@ public class EventManager {
 		}
 	}
 
+	/**
+	 * @see net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent
+	 */
 	@SubscribeEvent
 	public void onKeyPressed(InputEvent.KeyInputEvent event) {
 		if (!Keyboard.getEventKeyState())

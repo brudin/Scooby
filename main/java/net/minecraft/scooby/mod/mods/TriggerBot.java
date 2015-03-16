@@ -2,8 +2,11 @@ package net.minecraft.scooby.mod.mods;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.C02PacketUseEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import org.lwjgl.input.Keyboard;
 import net.minecraft.scooby.Scooby;
@@ -37,13 +40,13 @@ public class TriggerBot extends Mod {
 
 	@Override
 	public void onLivingUpdate(EntityPlayerSP player) {
-		float delay = random.nextFloat();
+		float delay = random.nextFloat() / 2; //Fraction of a second that it should wait for attacking
 		if (scooby.mc.objectMouseOver != null) {
 			if (scooby.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 				Entity entity = scooby.mc.objectMouseOver.entityHit;
 				if (entity instanceof EntityPlayer && entity.isEntityAlive()) {
 					if (timer.hasReach(delay)) {
-						this.attackPlayer((EntityPlayer) entity);
+						this.attackEntity((EntityPlayer) entity);
 						timer.reset();
 					}
 				}
@@ -56,11 +59,11 @@ public class TriggerBot extends Mod {
 	 *
 	 * @param player	An instance of <code>net.minecraft.entity.player.EntityPlayer</code> to be attacked.
 	 */
-	private void attackPlayer(EntityPlayer player) {
+	private void attackEntity(EntityLivingBase entity) {
 		boolean preSprint = scooby.mc.thePlayer.isSprinting();
 		scooby.mc.thePlayer.setSprinting(false);
 		scooby.mc.thePlayer.swingItem();
-		scooby.mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(player,
+		scooby.mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(entity,
 				C02PacketUseEntity.Action.ATTACK));
 		scooby.mc.thePlayer.setSprinting(preSprint);
 	}

@@ -28,9 +28,9 @@ public class Scooby {
 
 	/**
 	 * Feel free to change the name, I heard that Forge sends mod names to the server, so I went with
-	 * a common mod name. This isn't affiliated with OptiFine in any way.
+	 * a random mod name. I might use the http://modlist.mcf.li/ API to grab a random mod name upon startup.
 	 */
-	public static final String MOD_NAME = "OptiFine HD C7";
+	public static final String MOD_NAME = "Joypad Mod";
 
 	public Minecraft mc;
 	public ModManager modManager;
