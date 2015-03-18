@@ -2,11 +2,8 @@ package net.minecraft.scooby.mod.mods;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.play.client.C02PacketUseEntity;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import org.lwjgl.input.Keyboard;
 import net.minecraft.scooby.Scooby;
@@ -46,7 +43,7 @@ public class TriggerBot extends Mod {
 				Entity entity = scooby.mc.objectMouseOver.entityHit;
 				if (entity instanceof EntityPlayer && entity.isEntityAlive()) {
 					if (timer.hasReach(delay)) {
-						this.attackEntity((EntityPlayer) entity);
+						this.attackEntity((EntityPlayer)entity);
 						timer.reset();
 					}
 				}
@@ -55,17 +52,33 @@ public class TriggerBot extends Mod {
 	}
 
 	/**
-	 * Attacks the specified player.
+	 * Attacks the specified entity.
+	 * Copied directly from the clickMouse() method in Minecraft.java.
+	 * This is literally what happens when you click your mouse in vanilla. Nothing more.
 	 *
-	 * @param player	An instance of <code>net.minecraft.entity.player.EntityPlayer</code> to be attacked.
+	 * @param entity	An instance of <code>net.minecraft.entity.player.EntityPlayer</code> to be attacked.
 	 */
 	private void attackEntity(EntityLivingBase entity) {
-		boolean preSprint = scooby.mc.thePlayer.isSprinting();
-		scooby.mc.thePlayer.setSprinting(false);
+		if (!canAttack(scooby.mc.thePlayer, entity)) {
+			return;
+		}
 		scooby.mc.thePlayer.swingItem();
-		scooby.mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(entity,
-				C02PacketUseEntity.Action.ATTACK));
-		scooby.mc.thePlayer.setSprinting(preSprint);
+		scooby.mc.playerController.attackEntity(scooby.mc.thePlayer, entity);
+	}
+
+	/**
+	 * Checks if the <code>player</code> is able to attack the <code>target</code>.
+	 * I check if the <code>currentScreen</code> is null since some people pointed out that attacking with
+	 * your inventory open is obvious.
+	 * <code>player.isUsingItem()</code> is if the player is doing something like eating, pulling back a bow, blocking,
+	 * etc.
+	 *
+	 * @param player	The player that is going to attack the target.
+	 * @param target	The target entity that the player will attack.
+	 * @return
+	 */
+	private boolean canAttack(EntityPlayerSP player, EntityLivingBase target) {
+		return scooby.mc.currentScreen == null && !target.isInvisible() && !player.isUsingItem();
 	}
 
 	private class Timer {

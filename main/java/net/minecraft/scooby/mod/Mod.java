@@ -9,7 +9,7 @@ import net.minecraft.scooby.Scooby;
  */
 public abstract class Mod {
 
-	/* Instance of the BruGhost class */
+	/* Instance of the Scooby class */
 	protected Scooby scooby;
 
 	/* The key code that is used to toggle the mod */

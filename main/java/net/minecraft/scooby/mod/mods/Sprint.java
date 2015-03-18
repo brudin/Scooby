@@ -32,6 +32,7 @@ public class Sprint extends Mod {
 	 * @return			<code>true</code> if the player can sprint, else <code>false</code>.
 	 */
 	private boolean shouldSprint(EntityPlayerSP player) {
-		return player.moveForward > 0 && !player.isSneaking() && !player.isUsingItem() && player.getFoodStats().getFoodLevel() > 6;
+		return player.moveForward > 0 && !player.isSneaking() && !player.isUsingItem()
+				&& player.getFoodStats().getFoodLevel() > 6;
 	}
 }

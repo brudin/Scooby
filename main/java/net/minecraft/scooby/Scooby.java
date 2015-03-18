@@ -30,7 +30,7 @@ public class Scooby {
 	 * Feel free to change the name, I heard that Forge sends mod names to the server, so I went with
 	 * a random mod name. I might use the http://modlist.mcf.li/ API to grab a random mod name upon startup.
 	 */
-	public static final String MOD_NAME = "Joypad Mod";
+	public static final String MOD_NAME = "OpenComputers";
 
 	public Minecraft mc;
 	public ModManager modManager;
