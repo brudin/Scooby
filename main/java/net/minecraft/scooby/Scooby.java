@@ -37,7 +37,7 @@ public class Scooby {
 	private List<Handler> handlers = new ArrayList<Handler>();
 	
 	private ModHandler modHandler;
-	public EventHandler eventHandler;
+	private EventHandler eventHandler;
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
@@ -46,10 +46,10 @@ public class Scooby {
 		addHandler(modHandler = new ModHandler());
 		addHandler(eventHandler = new EventHandler());
 
-		FMLCommonHandler.instance().bus().register(this.eventHandler);
-		MinecraftForge.EVENT_BUS.register(this.eventHandler);
+		FMLCommonHandler.instance().bus().register(eventHandler);
+		MinecraftForge.EVENT_BUS.register(eventHandler);
 
-		this.modManager.loadMods();
+		modManager.loadMods();
 	}
 	
 	public void addHandler(Handler handler){
