@@ -15,11 +15,11 @@ import org.lwjgl.input.Keyboard;
  * @author b
  * @since 3:37 PM on 3/15/2015
  */
-public class EventManager {
+public class EventHandler implements Handler{
 
 	private Scooby scooby;
-
-	public EventManager(Scooby scooby) {
+	
+	public void init(Scooby scooby){
 		this.scooby = scooby;
 	}
 
