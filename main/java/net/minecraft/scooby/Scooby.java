@@ -33,18 +33,33 @@ public class Scooby {
 	public static final String MOD_NAME = "OpenComputers";
 
 	public Minecraft mc;
-	public ModManager modManager;
-	public EventManager eventManager;
+	
+	private List<Handler> handlers = new ArrayList<Handler>();
+	
+	private ModHandler modHandler;
+	public EventHandler eventHandler;
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		this.mc = Minecraft.getMinecraft();
-		this.modManager = new ModManager(this);
-		this.eventManager = new EventManager(this);
+		
+		addHandler(modHandler = new ModHandler());
+		addHandler(eventHandler = new EventHandler());
 
-		FMLCommonHandler.instance().bus().register(this.eventManager);
-		MinecraftForge.EVENT_BUS.register(this.eventManager);
+		FMLCommonHandler.instance().bus().register(this.eventHandler);
+		MinecraftForge.EVENT_BUS.register(this.eventHandler);
 
 		this.modManager.loadMods();
 	}
+	
+	public void addHandler(Handler handler){
+		getHandlers().add(handler);
+		handler.init(this);
+	}
+	
+	public List<Handler> getHandlers(){
+		return handlers;
+	}
+	
+	
 }
