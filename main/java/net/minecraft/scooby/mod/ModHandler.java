@@ -11,21 +11,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author b
  * @since 3:50 PM on 3/15/2015
  */
-public class ModManager {
+public class ModHandler implements Handler{
 
 	/* The list of mods.  This will allow us to loop through the mods to call stuff rather than individually. */
 	private List<Mod> mods = new CopyOnWriteArrayList<Mod>();
 
-	private Scooby scooby;
-
-	public ModManager(Scooby scooby) {
-		this.scooby = scooby;
+	@Override
+	public void init(Scooby scooby){
+		loadMods();
 	}
 
 	/**
 	 * 'Registers'/loads the mods.  Basically just loading them into the game by making instances of them.
 	 */
-	public void loadMods() {
+	private void loadMods() {
 		registerMod(new TriggerBot(scooby));
 		registerMod(new Sprint(scooby));
 	}
