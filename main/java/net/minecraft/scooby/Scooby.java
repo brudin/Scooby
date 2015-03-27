@@ -1,13 +1,5 @@
 package net.minecraft.scooby;
 
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraft.scooby.event.EventManager;
-import net.minecraft.scooby.mod.ModManager;
-
 /**
  * Scooby is my take on the recent 'Ghost Client' trend.
  * Ghost clients are generally used to give a player an advantage for things like PVP on Minecraft servers.
@@ -32,7 +24,7 @@ public class Scooby {
 	 */
 	public static final String MOD_NAME = "OpenComputers";
 
-	public Minecraft mc;
+	public Minecraft mc = Minecraft.getMinecraft();
 	
 	private List<Handler> handlers = new ArrayList<Handler>();
 	
@@ -41,8 +33,6 @@ public class Scooby {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		this.mc = Minecraft.getMinecraft();
-		
 		addHandler(modHandler = new ModHandler());
 		addHandler(eventHandler = new EventHandler());
 
