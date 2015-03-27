@@ -42,6 +42,20 @@ public class Scooby {
 		modManager.loadMods();
 	}
 	
+	public Handler getHandler(Class c){
+		for(Handler handler : getHandlers())
+			if(handler.getClass() == c)
+				return handler;
+		return null;
+	}
+	
+	public Handler getHandler(String name){
+		for(Handler handler : getHandlers())
+			if(handler.getName().equals(name))
+				return handler;
+		return null;
+	}
+	
 	public void addHandler(Handler handler){
 		getHandlers().add(handler);
 		handler.init(this);
