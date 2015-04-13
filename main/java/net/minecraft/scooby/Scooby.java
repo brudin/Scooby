@@ -1,13 +1,5 @@
 package net.minecraft.scooby;
 
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraft.scooby.event.EventManager;
-import net.minecraft.scooby.mod.ModManager;
-
 /**
  * Scooby is my take on the recent 'Ghost Client' trend.
  * Ghost clients are generally used to give a player an advantage for things like PVP on Minecraft servers.
@@ -32,19 +24,46 @@ public class Scooby {
 	 */
 	public static final String MOD_NAME = "OpenComputers";
 
-	public Minecraft mc;
-	public ModManager modManager;
-	public EventManager eventManager;
+	public Minecraft mc = Minecraft.getMinecraft();
+	
+	private List<Handler> handlers = new ArrayList<Handler>();
+	
+	private ModHandler modHandler;
+	private EventHandler eventHandler;
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		this.mc = Minecraft.getMinecraft();
-		this.modManager = new ModManager(this);
-		this.eventManager = new EventManager(this);
+		addHandler(modHandler = new ModHandler());
+		addHandler(eventHandler = new EventHandler());
 
-		FMLCommonHandler.instance().bus().register(this.eventManager);
-		MinecraftForge.EVENT_BUS.register(this.eventManager);
+		FMLCommonHandler.instance().bus().register(eventHandler);
+		MinecraftForge.EVENT_BUS.register(eventHandler);
 
-		this.modManager.loadMods();
+		modManager.loadMods();
 	}
+	
+	public Handler getHandler(Class c){
+		for(Handler handler : getHandlers())
+			if(handler.getClass() == c)
+				return handler;
+		return null;
+	}
+	
+	public Handler getHandler(String name){
+		for(Handler handler : getHandlers())
+			if(handler.getName().equals(name))
+				return handler;
+		return null;
+	}
+	
+	public void addHandler(Handler handler){
+		getHandlers().add(handler);
+		handler.init(this);
+	}
+	
+	public List<Handler> getHandlers(){
+		return handlers;
+	}
+	
+	
 }
