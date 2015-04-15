@@ -20,7 +20,7 @@ public class EventHandler implements Handler {
 
 	private Scooby scooby;
 	
-	public void init(Scooby scooby){
+	public void init(Scooby scooby) {
 		this.scooby = scooby;
 	}
 

@@ -21,7 +21,7 @@ public class ModHandler implements Handler {
 	 * 'Registers'/loads the mods.  Basically just loading them into the game by making instances of them.
 	 */
 	@Override
-	public void init(Scooby scooby){
+	public void init(Scooby scooby) {
 		registerMod(new TriggerBot(scooby));
 		registerMod(new Sprint(scooby));
 	}
