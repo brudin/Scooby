@@ -1,7 +1,9 @@
+package net.minecraft.scooby.handlers;
 
-public interface Handler{
+import net.minecraft.scooby.Scooby;
 
-	public void init(Scooby scooby);
-	public String getName();
+public interface Handler {
+
+	void init(Scooby scooby);
 
 }

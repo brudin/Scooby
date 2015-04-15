@@ -75,12 +75,15 @@ public class TriggerBot extends Mod {
 	 *
 	 * @param player	The player that is going to attack the target.
 	 * @param target	The target entity that the player will attack.
-	 * @return
 	 */
 	private boolean canAttack(EntityPlayerSP player, EntityLivingBase target) {
 		return scooby.mc.currentScreen == null && !target.isInvisible() && !player.isUsingItem();
 	}
 
+	/**
+	 * Basic Timer class used for delays and such.
+	 * @author Halalaboos
+	 */
 	private class Timer {
 
 		private long lastCheck = getSystemTime();
