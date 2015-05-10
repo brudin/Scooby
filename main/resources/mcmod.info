@@ -1,0 +1,16 @@
+[
+{
+  "modid": "Scooby",
+  "name": "Scooby",
+  "description": "null",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["brudin"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
