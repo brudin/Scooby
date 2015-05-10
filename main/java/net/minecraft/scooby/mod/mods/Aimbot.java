@@ -40,11 +40,10 @@ public class Aimbot extends Mod {
 		while (randIncrementPitch < 30.0F) {
 			randIncrementPitch = rand.nextFloat() * 45.0F;
 		}
-		boolean shouldFacePlayer;
 		if (targetPlayer != null) {
 			float prevRotationYaw = scooby.mc.thePlayer.rotationYaw, prevRotationPitch = scooby.mc.thePlayer.rotationPitch;
 			facePlayer(targetPlayer, randIncrementYaw, randIncrementPitch);
-			shouldFacePlayer = MathHelper.abs(MathHelper.wrapAngleTo180_float(prevRotationYaw) - MathHelper.wrapAngleTo180_float(scooby.mc.thePlayer.rotationYaw)) + MathHelper.abs(MathHelper.wrapAngleTo180_float(prevRotationPitch) - MathHelper.wrapAngleTo180_float(scooby.mc.thePlayer.rotationPitch)) > rand.nextFloat() * 8.0F;
+			boolean shouldFacePlayer = MathHelper.abs(MathHelper.wrapAngleTo180_float(prevRotationYaw) - MathHelper.wrapAngleTo180_float(scooby.mc.thePlayer.rotationYaw)) + MathHelper.abs(MathHelper.wrapAngleTo180_float(prevRotationPitch) - MathHelper.wrapAngleTo180_float(scooby.mc.thePlayer.rotationPitch)) > rand.nextFloat() * 8.0F;
 			scooby.mc.thePlayer.rotationYaw = prevRotationYaw;
 			scooby.mc.thePlayer.rotationPitch = prevRotationPitch;
 			if (!shouldFacePlayer) {
