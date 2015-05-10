@@ -29,7 +29,7 @@ public class Aimbot extends Mod {
 	@Override
 	public void onClientTickPost() {
 		// TODO Auto-generated method stub
-		if (scooby.mc.currentScreen != null && !scooby.mc.thePlayer.isUsingItem()) {
+		if (scooby.mc.currentScreen != null) {
 			return;
 		}
 		List sortedPlayers = new ArrayList();
