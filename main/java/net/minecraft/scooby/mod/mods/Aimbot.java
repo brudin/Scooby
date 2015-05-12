@@ -46,7 +46,7 @@ public class Aimbot extends Mod {
 				randXOffset = rand.nextDouble() * 0.05D;
 			}
 			double minRandYOffset, maxRandYOffset;
-			if (player.posY - player.prevPosY != 0.0D && (scooby.mc.thePlayer.motionY > 0.0D || (scooby.mc.thePlayer.motionY < 0.0D && !scooby.mc.thePlayer.onGround))) {
+			if (player.posY - player.prevPosY != 0.0D || scooby.mc.thePlayer.motionY > 0.0D || (scooby.mc.thePlayer.motionY < 0.0D && !scooby.mc.thePlayer.onGround)) {
 				minRandYOffset = 0.05D;
 				maxRandYOffset = 0.1D;
 			}
