@@ -4,6 +4,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.handlers.Handler;
 import net.minecraft.scooby.mod.Mod;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;

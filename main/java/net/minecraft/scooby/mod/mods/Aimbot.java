@@ -17,11 +17,16 @@ import net.minecraft.util.Vec3;
 
 import org.lwjgl.input.Keyboard;
 
+/**
+ * What the fuck do you think it does? Key bind to enable it is the 'I' key.
+ * @author pootPoot
+ * @since brudin started ignoring my pull request... :'C
+ */
 public class Aimbot extends Mod {
 
-	private EntityPlayer targetPlayer;
+	private EntityPlayer targetPlayer; // Makes Aimbot focus on one player before switching because kek.
 	private Random rand = new Random();
-	private int slowRotationsCount;
+	private int slowRotationCount;
 	private float slowRotationIncrement;
 	public Aimbot(Scooby scooby) {
 		super(scooby, Keyboard.KEY_I);
@@ -34,9 +39,36 @@ public class Aimbot extends Mod {
 
 	private void facePlayer(EntityPlayer player, float maxIncrementYaw, float maxIncrementPitch)
 	{
-		double deltaX = player.posX - scooby.mc.thePlayer.posX, deltaZ = player.posZ - scooby.mc.thePlayer.posZ;
+		double randXOffset, randYOffset, randZOffset;
+		if (player.posX - player.prevPosX != 0.0D || player.posY - player.prevPosY != 0.0D || player.posZ - player.prevPosZ != 0.0D || scooby.mc.thePlayer.motionX != 0.0D || scooby.mc.thePlayer.motionY > 0.0D || (scooby.mc.thePlayer.motionY < 0.0D && !scooby.mc.thePlayer.onGround) || scooby.mc.thePlayer.motionZ != 0.0D) {
+			randXOffset = rand.nextDouble() * 0.05D;
+			while (randXOffset < 0.01D) {
+				randXOffset = rand.nextDouble() * 0.05D;
+			}
+			double minRandYOffset, maxRandYOffset;
+			if (player.posY - player.prevPosY != 0.0D && (scooby.mc.thePlayer.motionY > 0.0D || (scooby.mc.thePlayer.motionY < 0.0D && !scooby.mc.thePlayer.onGround))) {
+				minRandYOffset = 0.05D;
+				maxRandYOffset = 0.1D;
+			}
+			else {
+				minRandYOffset = 0.01D;
+				maxRandYOffset = 0.05D;
+			}
+			randYOffset = rand.nextDouble() * maxRandYOffset;
+			while (randYOffset < minRandYOffset) {
+				randYOffset = rand.nextDouble() * maxRandYOffset;
+			}
+			randZOffset = rand.nextDouble() * 0.05D;
+			while (randZOffset < 0.01D) {
+				randZOffset = rand.nextDouble() * 0.05D;
+			}
+		}
+		else {
+			randXOffset = randYOffset = randZOffset = 0.0D;
+		}
+		double deltaX = player.posX + (rand.nextBoolean() ? randXOffset : -randXOffset) - scooby.mc.thePlayer.posX, deltaZ = player.posZ + (rand.nextBoolean() ? randZOffset : -randZOffset) - scooby.mc.thePlayer.posZ;
 		scooby.mc.thePlayer.rotationYaw = updateRotation(scooby.mc.thePlayer.rotationYaw, (float) (Math.atan2(deltaZ, deltaX) * 180.0D / Math.PI) - 90.0F, maxIncrementYaw);
-		scooby.mc.thePlayer.rotationPitch = updateRotation(scooby.mc.thePlayer.rotationPitch, (float) -(Math.atan2(player.getEntityBoundingBox().minY + player.getEyeHeight() + player.getYOffset() - (scooby.mc.thePlayer.posY + scooby.mc.thePlayer.getEyeHeight()), MathHelper.sqrt_double(deltaX * deltaX + deltaZ * deltaZ)) * 180.0D / Math.PI), maxIncrementPitch);
+		scooby.mc.thePlayer.rotationPitch = updateRotation(scooby.mc.thePlayer.rotationPitch, (float) -(Math.atan2(player.getEntityBoundingBox().minY + player.getEyeHeight() + player.getYOffset() + (rand.nextBoolean() ? randYOffset : -randYOffset) - (scooby.mc.thePlayer.posY + scooby.mc.thePlayer.getEyeHeight()), MathHelper.sqrt_double(deltaX * deltaX + deltaZ * deltaZ)) * 180.0D / Math.PI), maxIncrementPitch);
 	}
 	@Override
 	public void onClientTickPost() {
@@ -45,7 +77,7 @@ public class Aimbot extends Mod {
 			return;
 		}
 		float reachDistance = scooby.mc.playerController.getBlockReachDistance();
-		if (targetPlayer != null && slowRotationsCount == 0) {
+		if (targetPlayer != null && slowRotationCount == 0) {
 			float prevRotationYaw = scooby.mc.thePlayer.rotationYaw, prevRotationPitch = scooby.mc.thePlayer.rotationPitch;
 			facePlayer(targetPlayer, 360.0F, 360.0F);
 			float distanceToPlayer = scooby.mc.thePlayer.getDistanceToEntity(targetPlayer);
@@ -57,12 +89,12 @@ public class Aimbot extends Mod {
 				randMaxAngle = rand.nextFloat() * 10.0F / reachDistance * distanceToPlayer;
 			}
 			if (deltaAngle <= randMaxAngle) {
-				slowRotationsCount = 2;
-				slowRotationIncrement = randMaxAngle / slowRotationsCount;
+				slowRotationCount = 2;
+				slowRotationIncrement = randMaxAngle / slowRotationCount;
 			}
 			scooby.mc.thePlayer.rotationYaw = prevRotationYaw;
 			scooby.mc.thePlayer.rotationPitch = prevRotationPitch;
-			if (slowRotationsCount > 0) {
+			if (slowRotationCount > 0) {
 				return;
 			}
 		}
@@ -81,7 +113,7 @@ public class Aimbot extends Mod {
 		boolean hasFacedPlayer = false;
 		if (targetPlayer != null && !targetPlayer.isEntityAlive()) {
 			targetPlayer = null;
-			slowRotationsCount = 0;
+			slowRotationCount = 0;
 			slowRotationIncrement = 0.0F;
 		}
 		float randIncrementYaw = rand.nextFloat() * 45.0F;
@@ -96,10 +128,10 @@ public class Aimbot extends Mod {
 			for (Object currentObj : sortedPlayers) {
 				EntityPlayer currentPlayer = (EntityPlayer) currentObj;
 				if (currentPlayer.equals(targetPlayer) && currentPlayer.isEntityAlive() && currentPlayer.getDistanceToEntity(scooby.mc.thePlayer) < reachDistance && canSeePlayer(currentPlayer) && !currentPlayer.isInvisible()) {
-					facePlayer(targetPlayer, slowRotationsCount == 0 ? randIncrementYaw : slowRotationIncrement, slowRotationsCount == 0 ? randIncrementPitch : slowRotationIncrement);
+					facePlayer(targetPlayer, slowRotationCount == 0 ? randIncrementYaw : slowRotationIncrement, slowRotationCount == 0 ? randIncrementPitch : slowRotationIncrement);
 					hasFacedPlayer = true;
-					if (slowRotationsCount > 0) {
-						--slowRotationsCount;
+					if (slowRotationCount > 0) {
+						--slowRotationCount;
 					}
 					break;
 				}
@@ -111,7 +143,7 @@ public class Aimbot extends Mod {
 				if (currentPlayer.isEntityAlive() && currentPlayer.getDistanceToEntity(scooby.mc.thePlayer) < reachDistance && canSeePlayer(currentPlayer) && !currentPlayer.isInvisible()) {
 					facePlayer(currentPlayer, randIncrementYaw, randIncrementPitch);
 					targetPlayer = currentPlayer;
-					slowRotationsCount = 0;
+					slowRotationCount = 0;
 					slowRotationIncrement = 0.0F;
 					break;
 				}
@@ -140,7 +172,7 @@ public class Aimbot extends Mod {
 	public void setEnabled(boolean enabled) {
 		if (!enabled) {
 			targetPlayer = null;
-			slowRotationsCount = 0;
+			slowRotationCount = 0;
 			slowRotationIncrement = 0.0F;
 		}
 		super.setEnabled(enabled);
@@ -158,4 +190,5 @@ public class Aimbot extends Mod {
 		}
 		return currentRotation + deltaAngle;
 	}
+
 }
