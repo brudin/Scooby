@@ -44,13 +44,19 @@ public class Sprint extends Mod {
 	}
 
 	@Override
-	public void onPlayerClone(EntityPlayerSP player) {
+	public void onPlayerRespawn(EntityPlayerSP player) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onClientTickPost() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAttackPlayer(EntityPlayer target) {
 		// TODO Auto-generated method stub
 		
 	}

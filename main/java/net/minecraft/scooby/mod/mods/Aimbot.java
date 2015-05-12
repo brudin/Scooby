@@ -71,6 +71,12 @@ public class Aimbot extends Mod {
 		scooby.mc.thePlayer.rotationPitch = updateRotation(scooby.mc.thePlayer.rotationPitch, (float) -(Math.atan2(player.getEntityBoundingBox().minY + player.getEyeHeight() + player.getYOffset() + (rand.nextBoolean() ? randYOffset : -randYOffset) - (scooby.mc.thePlayer.posY + scooby.mc.thePlayer.getEyeHeight()), MathHelper.sqrt_double(deltaX * deltaX + deltaZ * deltaZ)) * 180.0D / Math.PI), maxIncrementPitch);
 	}
 	@Override
+	public void onAttackPlayer(EntityPlayer target) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void onClientTickPost() {
 		// TODO Auto-generated method stub
 		if (scooby.mc.currentScreen != null) {
@@ -158,11 +164,10 @@ public class Aimbot extends Mod {
 	}
 
 	@Override
-	public void onPlayerClone(EntityPlayerSP player) {
+	public void onPlayerRespawn(EntityPlayerSP player) {
 		// TODO Auto-generated method stub
 		setEnabled(false);
 	}
-
 	@Override
 	public void onWorldUnload() {
 		// TODO Auto-generated method stub
@@ -177,6 +182,7 @@ public class Aimbot extends Mod {
 		}
 		super.setEnabled(enabled);
 	}
+
 	private float updateRotation(float currentRotation, float targetRotation, float maxIncrement)
 	{
 		float deltaAngle = MathHelper.wrapAngleTo180_float(targetRotation - currentRotation);

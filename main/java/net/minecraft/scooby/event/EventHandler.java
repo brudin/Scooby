@@ -1,11 +1,13 @@
 package net.minecraft.scooby.event;
 
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.handlers.Handler;
 import net.minecraft.scooby.mod.Mod;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -81,7 +83,17 @@ public class EventHandler implements Handler {
 		if (event.wasDeath) {
 			for (Mod mod : scooby.modHandler.getMods()) {
 				if (mod.isEnabled()) {
-					mod.onPlayerClone((EntityPlayerSP) event.entityPlayer);
+					mod.onPlayerRespawn((EntityPlayerSP) event.entityPlayer);
+				}
+			}
+		}
+	}
+	@SubscribeEvent
+	public void onAttackEntity(AttackEntityEvent event) {
+		if (event.entityPlayer.equals(scooby.mc.thePlayer) && event.target instanceof EntityPlayer) {
+			for (Mod mod : scooby.modHandler.getMods()) {
+				if (mod.isEnabled()) {
+					mod.onAttackPlayer((EntityPlayer) event.target);
 				}
 			}
 		}

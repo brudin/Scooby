@@ -3,6 +3,7 @@ package net.minecraft.scooby.mod;
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.handlers.Handler;
 import net.minecraft.scooby.mod.mods.Aimbot;
+import net.minecraft.scooby.mod.mods.Criticals;
 import net.minecraft.scooby.mod.mods.Sprint;
 import net.minecraft.scooby.mod.mods.TriggerBot;
 import net.minecraft.scooby.mod.mods.Velocity;
@@ -28,6 +29,7 @@ public class ModHandler implements Handler {
 		registerMod(new Sprint(scooby));
 		registerMod(new Aimbot(scooby));
 		registerMod(new Velocity(scooby));
+		registerMod(new Criticals(scooby));
 	}
 
 	/**

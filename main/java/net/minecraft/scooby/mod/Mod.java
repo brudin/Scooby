@@ -57,6 +57,7 @@ public abstract class Mod {
 	 */
 	public abstract void onLivingUpdate(EntityPlayerSP player);
 	public abstract void onWorldUnload();
-	public abstract void onPlayerClone(EntityPlayerSP player);
+	public abstract void onPlayerRespawn(EntityPlayerSP player);
 	public abstract void onClientTickPost();
+	public abstract void onAttackPlayer(EntityPlayer target);
 }

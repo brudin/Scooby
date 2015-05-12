@@ -3,6 +3,7 @@ package net.minecraft.scooby.mod.mods;
 import java.util.Random;
 
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.mod.Mod;
 
@@ -20,6 +21,12 @@ public class Velocity extends Mod {
 	public Velocity(Scooby scooby) {
 		super(scooby, Keyboard.KEY_V);
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void onAttackPlayer(EntityPlayer target) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -52,7 +59,7 @@ public class Velocity extends Mod {
 	}
 
 	@Override
-	public void onPlayerClone(EntityPlayerSP player) {
+	public void onPlayerRespawn(EntityPlayerSP player) {
 		// TODO Auto-generated method stub
 		prevHealth = -999.0F;
 	}
