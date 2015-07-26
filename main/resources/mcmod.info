@@ -1,8 +1,8 @@
 [
 {
-  "modid": "Scooby",
-  "name": "Scooby",
-  "description": "null",
+  "modid": "FTM",
+  "name": "Forge Test Mod",
+  "description": "Small test mod for Forge",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
