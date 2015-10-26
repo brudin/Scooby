@@ -1,4 +1,4 @@
 # Scooby
-A free and open source 'ghost client'.
+A free and open source 'ghost client'.  I am no longer updating this, but since it is open source you can feel free to.
 
-You are not to use any of the code provided in this mod for your own monetary gain, nor are you allowed to use any code provided in this mod without given credit and permission.  You are free to use and modify it for personal use, feel free to fork this repo and have fun.  Same rules go for the client jar itself; do not use anything here to make money.
+You are not to use any code here for monetary gain, any other uses are fine as long as you give credit.
