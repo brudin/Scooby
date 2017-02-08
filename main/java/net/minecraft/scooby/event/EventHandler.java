@@ -1,12 +1,12 @@
 package net.minecraft.scooby.event;
 
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.handlers.Handler;
-import net.minecraft.scooby.mod.Mod;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraft.scooby.mode.Mode;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -19,21 +19,17 @@ import org.lwjgl.input.Keyboard;
 public class EventHandler implements Handler {
 
 	private Scooby scooby;
-	
+
+	@Override
 	public void init(Scooby scooby) {
 		this.scooby = scooby;
 	}
 
-	/**
-	 * @see net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
-	 */
 	@SubscribeEvent
-	public void onEntityUpdate(LivingEvent.LivingUpdateEvent event) {
-		if (event.entity == scooby.mc.thePlayer) {
-			for (Mod mod : scooby.modHandler.getMods()) {
-				if (mod.isEnabled()) {
-					mod.onLivingUpdate((EntityPlayerSP)event.entity);
-				}
+	public void onEvent(Event event) {
+		for (Mode mode : scooby.modeHandler.getModes()) {
+			if (mode.isEnabled()) {
+				mode.onEvent(event);
 			}
 		}
 	}
@@ -46,9 +42,9 @@ public class EventHandler implements Handler {
 		if (!Keyboard.getEventKeyState())
 			return;
 		int keyCode = Keyboard.getEventKey();
-		for (Mod mod : scooby.modHandler.getMods()) {
-			if (mod.getToggleKey() == keyCode) {
-				mod.setEnabled(!mod.isEnabled());
+		for (Mode mode : scooby.modeHandler.getModes()) {
+			if (mode.getToggleKey() == keyCode) {
+				mode.setEnabled(!mode.isEnabled());
 			}
 		}
 	}

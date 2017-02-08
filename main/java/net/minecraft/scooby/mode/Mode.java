@@ -1,16 +1,16 @@
-package net.minecraft.scooby.mod;
+package net.minecraft.scooby.mode;
 
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.scooby.Scooby;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**
  * @author b
  * @since 3:40 PM on 3/15/2015
  */
-public abstract class Mod {
+public abstract class Mode {
 
 	/* Instance of the Scooby class */
-	protected Scooby scooby;
+	protected final Scooby scooby;
 
 	/* The key code that is used to toggle the mod */
 	private int toggleKey = -1;
@@ -18,7 +18,7 @@ public abstract class Mod {
 	/* Whether or not the mod is currently enabled */
 	private boolean enabled = false;
 
-	public Mod(Scooby scooby, int toggleKey) {
+	public Mode(Scooby scooby, int toggleKey) {
 		this.scooby = scooby;
 		this.toggleKey = toggleKey;
 	}
@@ -31,15 +31,6 @@ public abstract class Mod {
 	}
 
 	/**
-	 * This method toggles the mod based on the specified state.
-	 *
-	 * @param	enabled	<code>true</code> if you want the mod enabled, else <code>false</code>.
-	 */
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	/**
 	 * This method returns <code>true</code> if the mod is enabled.
 	 *
 	 * @return	<code>true</code> if the mod is currently enabled, else <code>false</code>.
@@ -48,10 +39,14 @@ public abstract class Mod {
 		return this.enabled;
 	}
 
+	public abstract void onEvent(Event event);
+
 	/**
-	 * Called with the LivingEvent.LivingUpdateEvent event.
-	 * @param 	player	The player, aka you
-	 * @see 	net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent#LivingUpdateEvent
+	 * This method toggles the mod based on the specified state.
+	 *
+	 * @param	enabled	<code>true</code> if you want the mod enabled, else <code>false</code>.
 	 */
-	public abstract void onLivingUpdate(EntityPlayerSP player);
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }
