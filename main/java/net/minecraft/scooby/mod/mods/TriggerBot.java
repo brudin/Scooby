@@ -1,15 +1,16 @@
 package net.minecraft.scooby.mod.mods;
 
+import java.util.Random;
+
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MovingObjectPosition;
-import org.lwjgl.input.Keyboard;
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.mod.Mod;
+import net.minecraft.util.MovingObjectPosition;
 
-import java.util.Random;
+import org.lwjgl.input.Keyboard;
 
 /**
  * TriggerBot is a mod that automatically attacks a player if your mouse is currently over them.  Not to be confused
@@ -119,4 +120,29 @@ public class TriggerBot extends Mod {
 			return System.nanoTime() / (long) (1E6);
 		}
 	}
+
+	@Override
+	public void onWorldUnload() {
+		// TODO Auto-generated method stub
+		setEnabled(false);
+	}
+
+	@Override
+	public void onPlayerRespawn(EntityPlayerSP player) {
+		// TODO Auto-generated method stub
+		setEnabled(false);
+	}
+
+	@Override
+	public void onClientTickPost() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAttackPlayer(EntityPlayer target) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

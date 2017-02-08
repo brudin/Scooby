@@ -2,8 +2,11 @@ package net.minecraft.scooby.mod;
 
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.handlers.Handler;
+import net.minecraft.scooby.mod.mods.Aimbot;
+import net.minecraft.scooby.mod.mods.Criticals;
 import net.minecraft.scooby.mod.mods.Sprint;
 import net.minecraft.scooby.mod.mods.TriggerBot;
+import net.minecraft.scooby.mod.mods.Velocity;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,6 +27,9 @@ public class ModHandler implements Handler {
 	public void init(Scooby scooby) {
 		registerMod(new TriggerBot(scooby));
 		registerMod(new Sprint(scooby));
+		registerMod(new Aimbot(scooby));
+		registerMod(new Velocity(scooby));
+		registerMod(new Criticals(scooby));
 	}
 
 	/**

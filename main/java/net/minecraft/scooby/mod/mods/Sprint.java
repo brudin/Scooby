@@ -1,6 +1,7 @@
 package net.minecraft.scooby.mod.mods;
 
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scooby.Scooby;
 import net.minecraft.scooby.mod.Mod;
 
@@ -35,4 +36,29 @@ public class Sprint extends Mod {
 		return player.moveForward > 0 && !player.isSneaking() && !player.isUsingItem()
 				&& player.getFoodStats().getFoodLevel() > 6;
 	}
+
+	@Override
+	public void onWorldUnload() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPlayerRespawn(EntityPlayerSP player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClientTickPost() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAttackPlayer(EntityPlayer target) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

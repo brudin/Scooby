@@ -1,7 +1,9 @@
 package net.minecraft.scooby.mod;
 
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scooby.Scooby;
+import net.minecraft.world.World;
 
 /**
  * @author b
@@ -54,4 +56,8 @@ public abstract class Mod {
 	 * @see 	net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent#LivingUpdateEvent
 	 */
 	public abstract void onLivingUpdate(EntityPlayerSP player);
+	public abstract void onWorldUnload();
+	public abstract void onPlayerRespawn(EntityPlayerSP player);
+	public abstract void onClientTickPost();
+	public abstract void onAttackPlayer(EntityPlayer target);
 }
